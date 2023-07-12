@@ -23,115 +23,36 @@ function getExcelData(Object){
             const workbook = XLSX.read(data, {
                 type: "binary"
             });
+            console.log(workbook)
             let modalList = [];
             let excelList = []; //清空接收数据
-            if (Object.tag == 'TradingMarket') {
-                for (let i = 0; i < Object.metalList.length; i++) {
-                    //特殊处理：期货行情数据含多个金属类型，添加指定个数数组，分别装载对应类型数据
-                    excelList.push([]);
-                    //根据金属名称获取excel文件里同表名的数据
-                    let ws = XLSX.utils.sheet_to_json(workbook.Sheets[Object.metalList[i]['metalName']]);
-                    //编辑数据
-                    for (let j = 0; j < ws.length; j++) {
-                        excelList[i].push(ws[j]);
-                    }
-                    let arr = [];
-                    //将解析到的数据转为表格可识别的形式
-                    excelList[i].map((v, idx) => {
-                        let obj = {
-                            idx: idx,
-                            metalType: String(v['商品名称']).trim() == '' ? '-' : v['商品名称'],
-                            deliveryMonth: String(v['交割月份']).trim() == '' ? '-' : v['交割月份'],
-                            previousDaySettlementPrice: String(v['前结算']).trim() == '' ? '-' : v['前结算'],
-                            openingPrice: String(v['今开盘']).trim() == '' ? '-' : v['今开盘'],
-                            highestPrice: String(v['最高价']).trim() == '' ? '-' : v['最高价'],
-                            lowestPrice: String(v['最低价']).trim() == '' ? '-' : v['最低价'],
-                            closingPrice: String(v['收盘价']).trim() == '' ? '-' : v['收盘价'],
-                            settlementReferencePrice: String(v['结算参考价']).trim() == '' ? '-' : v['结算参考价'],
-                            upsDownsOne: String(v['涨跌1']).trim() == '' ? '-' : v['涨跌1'],
-                            upsDownsTwo: String(v['涨跌2']).trim() == '' ? '-' : v['涨跌2'],
-                            dealInterest: String(v['成交手']).trim() == '' ? '-' : v['成交手'],
-                            dealAmount: String(v['成交额']).trim() == '' ? '-' : v['成交额'],
-                            openInterest: String(v['持仓手']).trim() == '' ? '-' : v['持仓手'],
-                            changeInterest: String(v['变化']).trim() == '' ? '-' : v['变化'],
-                        };
-                        arr.push(obj);
-                    })
-                    //因金属行情含有多中金属，所以用exportList接收完整的excel内容
-                    Object.exportList[i] = arr;
-                }
-
-                let index = Object.metalList.findIndex(v=>v.metalName==Object.currentNav);
-                //明确当前显示内容
-                modalList = Object.exportList[index];
-            } else {
-                let wsname = workbook.SheetNames[0]; //取第一张表，wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
-                let ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname]); //生成json表格内容，wb.Sheets[Sheet名]获取第一个Sheet的数据
-                console.log(ws)
-                //编辑数据
-                // for (let i = 0; i < ws.length; i++) {
-                //     excelList.push(ws[i]);
-                // }
-                // let arr = [];
-                // //将解析到的数据转为表格可识别的形式
-                // excelList.map((v, idx) => {
-                //     if (Object.tag == 'UpdateGroup') {
-                //         let obj = {
-                //             idx: idx,
-                //             commodityNo: v['商品编号'],
-                //             commodityName: v['商品名称'],
-                //             quoteName: v['报价名称'],
-                //             quoteType: v['报价形式'],
-                //             quoteUnit: v['报价单位'],
-                //             marketName: v['市场'],
-                //             regionName: v['地区'],
-                //             warehouseName: v['仓库'],
-                //             invoiceTax: v['发票'],
-                //             quoteRemark: v['备注'],
-                //         };
-                //         arr.push(obj);
-                //     } else if (Object.tag == 'DailyPaper') {
-                //         let obj = {
-                //             idx: idx,
-                //             metalType: v['金属'],
-                //             registerStockQuantity: v['期货'],
-                //             changeStockQuantity: v['增减'],
-                //         };
-                //         arr.push(obj);
-                //     } else if (Object.tag == 'Weekly') {
-                //         let obj = {
-                //             idx: idx,
-                //             metalType: v['金属'],
-                //             totalStockQuantity: v['本周库存(小计)'],
-                //             totalFuturesQuantity: v['本周库存(期货)'],
-                //             changeStockQuantity: v['库存增减(小计)'],
-                //             changeFuturesQuantity: v['库存增减(期货)'],
-                //             totalCapacityQuantity: v['可用库容(本周)'],
-                //             changeCapacityQuantity: v['可用库容(增减)'],
-                //         };
-                //         arr.push(obj);
-                //     } else if (Object.tag == 'SensitiveWord') {
-                //         let obj = {
-                //             idx: idx,
-                //             sensitiveWord: v['过滤词名称'],
-                //         };
-                //         arr.push(obj);
-                //     } else if (Object.tag == 'UpdateGroupUpdate') {
-                //         let columnsKey = [];
-                //         let obj = { idx: idx, };
-                //         for (let i in v) { columnsKey.push(i); }
-                //         columnsKey.forEach(sub=>{
-                //             let c = Object.columns.find(i=>i.label==sub);
-                //             if (c) {
-                //                 obj[c.prop] = v[c.label]
-                //             }
-                //         })
-                //         arr.push(obj);
-                //     }
-                // })
-                //表格应显示内容
-                // modalList = arr;
+            let wsname = workbook.SheetNames[1]; //取第一张表，wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
+            let ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname]); //生成json表格内容，wb.Sheets[Sheet名]获取第一个Sheet的数据
+            console.log(ws)
+            //编辑数据
+            for (let i = 0; i < 10; i++) {
+                excelList.push(ws[i]);
             }
+            let arr = [];
+            // //将解析到的数据转为表格可识别的形式
+            excelList.map((v, idx) => {
+                let obj = {
+                    idx: idx,
+                    strategyName: v['策略名'],
+                    description: v['描述'],
+                    descriptionOrigin: v['描述原文'],
+                    sourceLogical: v['源逻辑实体(必填)'],
+                    sourceIP: v['源IP/掩码(必填)'],
+                    destinationLogical: v['目的逻辑实体(必填)'],
+                    destinationIP: v['目的响应方IP/掩码(必填)'],
+                    servicePorts: v['服务端口(必填)'],
+                    serviceType: v['服务类型(必填)'],
+                };
+                arr.push(obj);
+            })
+            console.log(arr)
+            //表格应显示内容
+            modalList = arr;
             //使用回调接收“表格应显示内容”，使表格正常显示；注意：直接传值后赋值，无法正常显示表格内容
             if (Object.callback) {
                 Object.callback(modalList);
