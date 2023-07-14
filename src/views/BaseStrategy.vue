@@ -11,7 +11,7 @@
           <input type="file" class="my_input" id="upload" @change="handleChange">
           导入EXCEL
         </el-button>
-        <el-button @click="downloadTemplate" type="primary" :icon="Download" link size="small" v-show="isConfirm">下载表格</el-button>
+        <el-button @click="downloadTemplate" type="primary" :icon="Download" v-show="isConfirm">下载表格</el-button>
       </el-form-item>
     </el-form>
     <el-table :data="tableData" :table-layout="'auto'" style="width: 100%">
