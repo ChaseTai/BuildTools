@@ -23,14 +23,12 @@ function getExcelData(Object){
             const workbook = XLSX.read(data, {
                 type: "binary"
             });
-            console.log(workbook)
             let modalList = [];
             let excelList = []; //清空接收数据
             let wsname = workbook.SheetNames[1]; //取第一张表，wb.SheetNames[0]是获取Sheets中第一个Sheet的名字
             let ws = XLSX.utils.sheet_to_json(workbook.Sheets[wsname]); //生成json表格内容，wb.Sheets[Sheet名]获取第一个Sheet的数据
-            console.log(ws)
             //编辑数据
-            for (let i = 0; i < 10; i++) {
+            for (let i = 0; i < ws.length; i++) {
                 excelList.push(ws[i]);
             }
             let arr = [];
@@ -44,13 +42,13 @@ function getExcelData(Object){
                     sourceLogical: v['源逻辑实体(必填)'],
                     sourceIP: v['源IP/掩码(必填)'],
                     destinationLogical: v['目的逻辑实体(必填)'],
-                    destinationIP: v['目的响应方IP/掩码(必填)'],
+                    destinationIP: v['目的IP/掩码(必填)'],
                     servicePorts: v['服务端口(必填)'],
                     serviceType: v['服务类型(必填)'],
                 };
                 arr.push(obj);
             })
-            console.log(arr)
+            // console.log(arr)
             //表格应显示内容
             modalList = arr;
             //使用回调接收“表格应显示内容”，使表格正常显示；注意：直接传值后赋值，无法正常显示表格内容
