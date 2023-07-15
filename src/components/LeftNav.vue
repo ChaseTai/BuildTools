@@ -16,6 +16,10 @@
         <el-icon><icon-menu /></el-icon>
         <span>办公室基础策略</span>
       </el-menu-item>
+      <el-menu-item index="/baseStrategy">
+        <el-icon><icon-menu /></el-icon>
+        <span>AP-SN</span>
+      </el-menu-item>
     </el-menu>
   </div>
 </template>
