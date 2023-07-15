@@ -18,7 +18,7 @@
       </el-menu-item>
       <el-menu-item index="/baseStrategy">
         <el-icon><icon-menu /></el-icon>
-        <span>AP-SN</span>
+        <span>AP-SN-2</span>
       </el-menu-item>
     </el-menu>
   </div>
